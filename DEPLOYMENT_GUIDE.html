@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Ganpati Store — Deployment Guide</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #FFF8F0; color: #2D2D2D; }
+
+  .header { background: linear-gradient(135deg, #FF6B00, #FFB300); padding: 36px 24px; text-align: center; color: #fff; }
+  .header h1 { font-size: 28px; font-weight: 800; }
+  .header p  { font-size: 15px; opacity: .9; margin-top: 6px; }
+
+  .container { max-width: 820px; margin: 0 auto; padding: 32px 20px; }
+
+  .phase { background: #fff; border-radius: 18px; padding: 28px; margin-bottom: 24px; box-shadow: 0 2px 16px rgba(0,0,0,0.07); border-left: 5px solid #FF6B00; }
+  .phase-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+  .phase-num { width: 44px; height: 44px; border-radius: 50%; background: #FF6B00; color: #fff; font-size: 20px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .phase-title { font-size: 20px; font-weight: 800; color: #1A1A2E; }
+  .phase-sub { font-size: 13px; color: #777; margin-top: 2px; }
+
+  .step { display: flex; gap: 14px; margin-bottom: 18px; align-items: flex-start; }
+  .step-dot { width: 28px; height: 28px; border-radius: 50%; background: #FFF3E0; border: 2px solid #FF6B00; color: #FF6B00; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .step-body { flex: 1; }
+  .step-title { font-weight: 700; font-size: 15px; color: #1A1A2E; margin-bottom: 4px; }
+  .step-desc { font-size: 14px; color: #555; line-height: 1.6; }
+
+  .code { background: #1A1A2E; color: #FFD54F; font-family: 'Courier New', monospace; font-size: 13px; padding: 14px 18px; border-radius: 10px; margin: 10px 0; overflow-x: auto; white-space: pre; }
+  .code .comment { color: #6A9955; }
+
+  .highlight { background: #FFF3E0; border: 1px solid #FFB300; border-radius: 8px; padding: 10px 14px; font-size: 13px; margin: 10px 0; }
+  .highlight strong { color: #FF6B00; }
+
+  .green-phase { border-left-color: #2E7D32; }
+  .green-phase .phase-num { background: #2E7D32; }
+  .green-phase .step-dot { border-color: #2E7D32; color: #2E7D32; background: #E8F5E9; }
+
+  .blue-phase { border-left-color: #1565C0; }
+  .blue-phase .phase-num { background: #1565C0; }
+  .blue-phase .step-dot { border-color: #1565C0; color: #1565C0; background: #E3F2FD; }
+
+  .purple-phase { border-left-color: #7B1FA2; }
+  .purple-phase .phase-num { background: #7B1FA2; }
+  .purple-phase .step-dot { border-color: #7B1FA2; color: #7B1FA2; background: #F3E5F5; }
+
+  .success-box { background: #E8F5E9; border: 2px solid #2E7D32; border-radius: 14px; padding: 20px; text-align: center; margin-top: 24px; }
+  .success-box h2 { color: #2E7D32; font-size: 22px; }
+  .success-box p  { color: #555; font-size: 14px; margin-top: 8px; }
+
+  a { color: #FF6B00; }
+
+  @media print { body { background: #fff; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🐘 Ganpati Store — Complete Deployment Guide</h1>
+  <p>PostgreSQL + Node.js backend deployed free on Render.com</p>
+</div>
+
+<div class="container">
+
+  <!-- PHASE 1: GitHub -->
+  <div class="phase">
+    <div class="phase-header">
+      <div class="phase-num">1</div>
+      <div>
+        <div class="phase-title">Upload Code to GitHub</div>
+        <div class="phase-sub">Free • Takes ~5 minutes • Do this on your Mac</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-body">
+        <div class="step-title">Create a GitHub account</div>
+        <div class="step-desc">Go to <a href="https://github.com" target="_blank">github.com</a> → click Sign Up → create a free account with your email.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-body">
+        <div class="step-title">Create a new repository</div>
+        <div class="step-desc">After logging in → click the green <strong>"New"</strong> button → name it <strong>ganpati-backend</strong> → click <strong>"Create repository"</strong>. Leave everything else as default.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-body">
+        <div class="step-title">Install Git on your Mac (if not already)</div>
+        <div class="step-desc">Open Terminal and run:</div>
+        <div class="code">git --version</div>
+        <div class="step-desc">If it shows a version number, Git is installed. If not, it will ask you to install it — click Install.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-body">
+        <div class="step-title">Go to your project folder in Terminal</div>
+        <div class="code">cd ~/Downloads/ganpati-backend</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-body">
+        <div class="step-title">Upload to GitHub — run these commands one by one</div>
+        <div class="code"><span class="comment"># Replace YOUR_GITHUB_USERNAME with your actual GitHub username</span>
+git init
+git add .
+git commit -m "first commit"
+git branch -M main
+git remote add origin https://github.com/YOUR_GITHUB_USERNAME/ganpati-backend.git
+git push -u origin main</div>
+        <div class="highlight">⚠️ It will ask for your GitHub username and password. For password, use a <strong>Personal Access Token</strong> (not your GitHub password). Go to github.com → Settings → Developer Settings → Personal Access Tokens → Generate new token (classic) → check "repo" scope → copy the token and paste it as the password.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 2: Render PostgreSQL -->
+  <div class="phase green-phase">
+    <div class="phase-header">
+      <div class="phase-num">2</div>
+      <div>
+        <div class="phase-title">Create Free PostgreSQL Database on Render</div>
+        <div class="phase-sub">Free • Takes ~3 minutes • Do this in your browser</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-body">
+        <div class="step-title">Sign up on Render</div>
+        <div class="step-desc">Go to <a href="https://render.com" target="_blank">render.com</a> → click <strong>Get Started for Free</strong> → sign up with your GitHub account (easiest).</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-body">
+        <div class="step-title">Create a PostgreSQL database</div>
+        <div class="step-desc">In Render dashboard → click <strong>New +</strong> → select <strong>PostgreSQL</strong> → fill in:</div>
+        <div class="highlight">
+          <strong>Name:</strong> ganpati-db<br>
+          <strong>Database:</strong> ganpati_store<br>
+          <strong>User:</strong> ganpati_user<br>
+          <strong>Region:</strong> Singapore (closest to India)<br>
+          <strong>Plan:</strong> Free
+        </div>
+        <div class="step-desc">Click <strong>Create Database</strong>. Wait ~2 minutes for it to be ready.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-body">
+        <div class="step-title">Copy the connection string</div>
+        <div class="step-desc">Once the database is created, scroll down to <strong>"Connections"</strong> section → find <strong>"External Database URL"</strong> → click the copy button. Save this — you need it in the next phase.</div>
+        <div class="highlight">It looks like: <strong>postgresql://ganpati_user:somepassword@dpg-xxxx.singapore-postgres.render.com/ganpati_store</strong></div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-body">
+        <div class="step-title">Run the database setup SQL</div>
+        <div class="step-desc">In Render dashboard → click your database → find <strong>"PSQL Command"</strong> → click the copy button → paste it in your Terminal. This opens the database shell. Then copy and paste the entire contents of <strong>setup.sql</strong> file and press Enter. Type <strong>\q</strong> to exit.</div>
+        <div class="highlight">This creates all the tables (users, products, orders, cart, wishlist) and fills in all 44 products automatically.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 3: Deploy Backend -->
+  <div class="phase blue-phase">
+    <div class="phase-header">
+      <div class="phase-num">3</div>
+      <div>
+        <div class="phase-title">Deploy Backend on Render</div>
+        <div class="phase-sub">Free • Takes ~5 minutes</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-body">
+        <div class="step-title">Create a Web Service on Render</div>
+        <div class="step-desc">In Render dashboard → click <strong>New +</strong> → select <strong>Web Service</strong> → connect your GitHub account → select the <strong>ganpati-backend</strong> repository.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-body">
+        <div class="step-title">Configure the service</div>
+        <div class="highlight">
+          <strong>Name:</strong> ganpati-backend<br>
+          <strong>Region:</strong> Singapore<br>
+          <strong>Branch:</strong> main<br>
+          <strong>Build Command:</strong> npm install<br>
+          <strong>Start Command:</strong> node server.js<br>
+          <strong>Plan:</strong> Free
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-body">
+        <div class="step-title">Add Environment Variables</div>
+        <div class="step-desc">Scroll down to <strong>"Environment Variables"</strong> section → add these one by one:</div>
+        <div class="highlight">
+          <strong>DATABASE_URL</strong> = (paste the External Database URL you copied in Phase 2)<br><br>
+          <strong>JWT_SECRET</strong> = ganpati_navin_store_secret_9876543210abcdef<br><br>
+          <strong>PORT</strong> = 5000
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-body">
+        <div class="step-title">Click "Create Web Service"</div>
+        <div class="step-desc">Render will now build and deploy your backend. Watch the logs at the bottom. When you see <strong>"Server running on port 5000"</strong> — it's live! 🎉</div>
+        <div class="highlight">Your backend URL will be something like: <strong>https://ganpati-backend.onrender.com</strong><br>Copy this URL — you need it for the next phase.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-body">
+        <div class="step-title">Test your backend</div>
+        <div class="step-desc">Open your browser and go to:</div>
+        <div class="code">https://ganpati-backend.onrender.com/</div>
+        <div class="step-desc">You should see: <strong>{"message":"🐘 Ganpati Store API is running!"}</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PHASE 4: Connect Frontend -->
+  <div class="phase purple-phase">
+    <div class="phase-header">
+      <div class="phase-num">4</div>
+      <div>
+        <div class="phase-title">Connect Your Frontend HTML to the Backend</div>
+        <div class="phase-sub">Edit your HTML file • Takes ~2 minutes</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">1</div>
+      <div class="step-body">
+        <div class="step-title">Open your HTML file in a text editor</div>
+        <div class="step-desc">Open <strong>ganpati-store-namsai.html</strong> in any text editor (TextEdit on Mac, or VS Code).</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">2</div>
+      <div class="step-body">
+        <div class="step-title">Add api.js before your existing script</div>
+        <div class="step-desc">Find the line <strong>&lt;/head&gt;</strong> in your HTML and add this line just before it:</div>
+        <div class="code">&lt;script src="api.js"&gt;&lt;/script&gt;</div>
+        <div class="step-desc">Put the <strong>api.js</strong> file in the same folder as your HTML file.</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">3</div>
+      <div class="step-body">
+        <div class="step-title">Update the API URL in api.js</div>
+        <div class="step-desc">Open <strong>api.js</strong> → find the first line and replace with your Render URL:</div>
+        <div class="code">const API_BASE = 'https://ganpati-backend.onrender.com/api';</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">4</div>
+      <div class="step-body">
+        <div class="step-title">Replace the 4 key functions in your HTML</div>
+        <div class="step-desc">Find and replace these functions inside your existing <strong>&lt;script&gt;</strong> tag:</div>
+        <div class="code"><span class="comment">// Replace doLogin() with:</span>
+async function doLogin(){
+  clearErrors(['loginEmailErr','loginPassErr']);
+  const email=document.getElementById('loginEmail').value.trim();
+  const pass=document.getElementById('loginPass').value;
+  if(!email){setError('loginEmailErr','Please enter a valid email');return;}
+  if(!pass){setError('loginPassErr','Password is required');return;}
+  try{
+    currentUser = await apiLogin(email, pass);
+    closeModal('loginModal');
+    updateSettingsUI();
+    showToast('Welcome back, '+currentUser.name+'! 👋','success');
+  } catch(err){
+    setError('loginPassErr', err.message);
+  }
+}</div>
+
+        <div class="code"><span class="comment">// Replace doRegister() with:</span>
+async function doRegister(){
+  clearErrors(['regNameErr','regEmailErr','regAddressErr','regPincodeErr','regPassErr']);
+  const name=document.getElementById('regName').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const address=document.getElementById('regAddress').value.trim();
+  const pincode=document.getElementById('regPincode').value.trim();
+  const pass=document.getElementById('regPass').value;
+  if(!name){setError('regNameErr','Name is required');return;}
+  if(!email){setError('regEmailErr','Valid email required');return;}
+  if(!pass||pass.length&lt;6){setError('regPassErr','Password must be 6+ characters');return;}
+  try{
+    currentUser = await apiRegister(name, email, pass, address, pincode);
+    closeModal('registerModal');
+    updateSettingsUI();
+    showToast('Account created! Welcome, '+currentUser.name+'! 🎉','success');
+  } catch(err){
+    setError('regEmailErr', err.message);
+  }
+}</div>
+
+        <div class="code"><span class="comment">// Replace doCheckout() with:</span>
+async function doCheckout(){
+  if(!currentUser){showToast('Please login to place an order','error-toast');toggleCart();openModal('loginModal');return;}
+  try{
+    const data = await apiCheckout();
+    cart={};
+    updateCartBadge();
+    renderCartPanel();
+    toggleCart();
+    showToast('🎉 '+data.message,'success');
+  } catch(err){
+    showToast(err.message,'error-toast');
+  }
+}</div>
+
+        <div class="code"><span class="comment">// Replace doLogout() with:</span>
+function doLogout(){
+  currentUser=null;
+  clearToken();
+  toggleSettings();
+  updateSettingsUI();
+  showPage('home');
+  showToast('Logged out successfully','success');
+}</div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-dot">5</div>
+      <div class="step-body">
+        <div class="step-title">Add this at the very bottom of your &lt;script&gt; tag (before &lt;/script&gt;)</div>
+        <div class="code"><span class="comment">// Restore login session on page load</span>
+(async function(){
+  const token = getToken();
+  if(token){
+    try{
+      currentUser = await apiGetMe();
+      updateSettingsUI();
+    } catch(e){ clearToken(); }
+  }
+})();</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="success-box">
+    <h2>🎉 Your App is Live!</h2>
+    <p>Backend: <strong>https://ganpati-backend.onrender.com</strong></p>
+    <p style="margin-top:10px;">Open your HTML file in a browser — login, register, add to cart, place orders — all saved in the real database!</p>
+    <p style="margin-top:12px;color:#888;font-size:13px;">⚠️ Free Render services sleep after 15 minutes of inactivity. The first request after sleeping takes ~30 seconds. This is normal for the free plan.</p>
+  </div>
+
+</div>
+</body>
+</html>
